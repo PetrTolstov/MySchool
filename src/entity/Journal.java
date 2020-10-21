@@ -27,9 +27,13 @@ public class Journal {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY hh:mm");
         String dateStr = sdf.format(date);
-        return "Journal{" + "student=" + student + ", subject=" + subject + ", mark=" + mark + ", date=" + date + '}';
+        return "Journal{"   + "student FirstName=" + student.getFirstName()
+                            +"student LastName=" + student.getLastName()
+                            + ", subject=" + subject.getName()
+                            + ", mark=" + mark
+                            + ", date=" + dateStr + '}';
     }
     
     public Journal() {
