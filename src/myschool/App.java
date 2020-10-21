@@ -10,5 +10,9 @@ package myschool;
  * @author user
  */
 class App {
+
+    public void run() {
+           
+    }
     
 }

@@ -15,7 +15,9 @@ public class MySchool {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        App app = new App();
+        app.run();
+        
     }
     
 }
