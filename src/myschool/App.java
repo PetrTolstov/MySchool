@@ -5,31 +5,51 @@
  */
 package myschool;
 
+import entity.Journal;
 import entity.Person;
+import entity.Subject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import tools.manager.JournalManager;
 import tools.manager.PersonManager;
 import tools.manager.SaveToFile;
+import tools.manager.SubjectManager;
 
 /**
  *
  * @author user
  */
-class App {
+public class App {
     private Scanner scanner = new Scanner(System.in);  
+
+    public List<Person> getListPersons() {
+        return listPersons;
+    }
     private List<Person> listPersons = new ArrayList<>();
-    private PersonManager personManager = new PersonManager();
+    private PersonManager personManager = new PersonManager(listPersons);
+    private List<Subject> listSubjects = new ArrayList<>();
+    private SubjectManager subjectManager = new SubjectManager(listSubjects);
+    private List<Journal> listJournals = new ArrayList<>();
+    private JournalManager journalManager = new JournalManager();
     
     public App(){
         System.out.println("---Успешное подключение массива---");
         SaveToFile saveToFile = new SaveToFile();
-        this.listPersons = saveToFile.loadFromFile("listPersons");
+        this.listPersons = saveToFile.loadFromFilePerson("listPersons");
+        this.listSubjects =  saveToFile.loadFromFileSubject("listSubjects");
+    }
+
+    public List<Subject> getListSubjects() {
+        return listSubjects;
     }
     
     public void run() {
          System.out.println("---My School---");
         boolean repeat = true;
+        
+        personManager = new PersonManager(listPersons);
+        subjectManager = new SubjectManager(listSubjects);
          
          do{
          System.out.println("Задачи:");
@@ -59,40 +79,33 @@ class App {
                 break;
                 
             case "2":
-                for(int i = 0; i < listPersons.size(); i++){
-                    String role = listPersons.get(i).getRole();
-                    if("STUDENT".equals(role)){
-                        System.out.println(listPersons.get(i));
-                }
-                        
-             }
+                personManager.getStudents();
                 break;
                 
             case "3":
-                
                 Person teacher = personManager.createPerson("TEACHER");
                 PersonManager.addToList(teacher, listPersons);
                 break;
 
                 
             case "4":
-                for(int i = 0; i < listPersons.size(); i++){
-                    if(listPersons.get(i).getRole() == "TEACHER"){
-                        System.out.println(listPersons.get(i));
-                }}
+                personManager.getTeahers();
                 break;
                 
             case "5":
+                Subject subject = subjectManager.createSubject();
+                subjectManager.addToList(subject, listSubjects);
                 break;
                 
             case "6":
-                
+                subjectManager.getSubjects();
                 break;
             case "7":
-                
+                Journal journal = journalManager.createJournal(listSubjects, listPersons );
+                journalManager.addToList(journal, listJournals);
                 break;
             case "8":
-                
+                journalManager.getJournalByStudent(listJournals);
                 break;
             case "9":
                 break;
@@ -107,5 +120,7 @@ class App {
         
          }while(repeat);
     }
+
+
     
 }

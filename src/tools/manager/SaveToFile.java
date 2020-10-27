@@ -5,7 +5,9 @@
  */
 package tools.manager;
 
+import entity.Journal;
 import entity.Person;
+import entity.Subject;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,9 +33,10 @@ public class SaveToFile implements Saveable{
     }
 
 
+    
 
     @Override
-    public void savingToFile(List<Person> arrayList, String fileName) {
+    public void savingToFilePerson(List<Person> arrayList, String fileName) {
 
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
@@ -49,7 +52,77 @@ public class SaveToFile implements Saveable{
         }}
 
     @Override
-    public List loadFromFile(String fileName) {
+    public List loadFromFilePerson(String fileName) {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(fileName);
+            ois = new ObjectInputStream(fis);
+            return (List) ois.readObject();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Не найден файл");
+        } catch (IOException ex) {
+            System.out.println("Ошибка ввода/вывода");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Ошибка: не найден класс");
+        }
+        return new ArrayList();
+    }
+
+    @Override
+    public void savingToFileSubject(List<Subject> arrayList, String fileName) {
+        
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream(fileName);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(arrayList);
+            oos.flush();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Не найден файл");
+        } catch (IOException ex) {
+            System.out.println("Ошибка ввода/вывода");    
+        }
+    }
+    
+    @Override
+    public List loadFromFileSubject(String fileName) {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(fileName);
+            ois = new ObjectInputStream(fis);
+            return (List) ois.readObject();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Не найден файл");
+        } catch (IOException ex) {
+            System.out.println("Ошибка ввода/вывода");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Ошибка: не найден класс");
+        }
+        return new ArrayList();
+    }
+    
+    @Override
+    public void savingToFileJournal(List<Journal> arrayList, String fileName) {
+        
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream(fileName);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(arrayList);
+            oos.flush();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Не найден файл");
+        } catch (IOException ex) {
+            System.out.println("Ошибка ввода/вывода");    
+        }
+    }
+    
+    @Override
+    public List loadFromFileJournal(String fileName) {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
