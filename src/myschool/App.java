@@ -34,10 +34,13 @@ public class App {
     private JournalManager journalManager = new JournalManager();
     
     public App(){
-        System.out.println("---Успешное подключение массива---");
+        
         SaveToFile saveToFile = new SaveToFile();
         this.listPersons = saveToFile.loadFromFilePerson("listPersons");
         this.listSubjects =  saveToFile.loadFromFileSubject("listSubjects");
+        this.listJournals = saveToFile.loadFromFileJournal("listJournals");
+        System.out.println(listJournals.size());
+        System.out.println("---Успешное подключение массива---");
     }
 
     public List<Subject> getListSubjects() {
@@ -105,12 +108,14 @@ public class App {
                 journalManager.addToList(journal, listJournals);
                 break;
             case "8":
-                journalManager.getJournalByStudent(listJournals);
+                journalManager.getJournalByStudent(listJournals, listPersons);
                 break;
             case "9":
+                journalManager.getJournalBySubject(listJournals, listSubjects);
                 break;
                 
             case "10":
+                journalManager.getJournalByStudentWC(listJournals, listPersons);
                 break;
                 
             default:

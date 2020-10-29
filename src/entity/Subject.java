@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
@@ -51,6 +52,39 @@ public class Subject implements Serializable {
 
     public void setPersonalTeacher(String personalTeacher) {
         this.personalTeacher = personalTeacher;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + Objects.hashCode(this.duration);
+        hash = 37 * hash + Objects.hashCode(this.personalTeacher);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Subject other = (Subject) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.duration, other.duration)) {
+            return false;
+        }
+        if (!Objects.equals(this.personalTeacher, other.personalTeacher)) {
+            return false;
+        }
+        return true;
     }
 
 

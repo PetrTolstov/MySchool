@@ -22,7 +22,7 @@ public class JournalManager {
    
     private Calendar c = new GregorianCalendar();
     
-    public static void addToList(Journal journal, List<Journal> listJournals) {
+    public void addToList(Journal journal, List<Journal> listJournals) {
         listJournals.add(journal);
         SaveToFile saveToFile = new SaveToFile();
         saveToFile.savingToFileJournal(listJournals, "listJournals");
@@ -50,6 +50,36 @@ public class JournalManager {
         return journal;
     }
 
-    public static void getJournalByStudent( List<Journal> listJournals) {
+    public void getJournalByStudent( List<Journal> listJournals,  List<Person> listPersons) {
+        System.out.println("Ученик: ");
+        Journal journal = new Journal();
+        
+        PersonManager personManager =  new PersonManager(listPersons);
+        personManager.getStudents();
+        
+        Person person = personManager.getListPersons().get(scanner.nextInt());
+        journal.getByStudent( person , listJournals);
+}
+public void getJournalBySubject( List<Journal> listJournals,  List<Subject> listSubjects) {
+        System.out.println("Предмет: ");
+        Journal journal = new Journal();
+        
+        SubjectManager subjectManager =  new SubjectManager(listSubjects);
+        subjectManager.getSubjects();
+        
+        Subject subject = subjectManager.getListSubjects().get(scanner.nextInt());
+        journal.getBySubject( subject , listJournals);
+}
 
-}}
+    public void getJournalByStudentWC(List<Journal> listJournals, List<Person> listPersons) {
+        System.out.println("Ученик: ");
+        Journal journal = new Journal();
+        
+        PersonManager personManager =  new PersonManager(listPersons);
+        personManager.getStudents();
+        
+        Person person = personManager.getListPersons().get(scanner.nextInt());
+        journal.getChangeMark( person , listJournals);
+    }
+
+}
